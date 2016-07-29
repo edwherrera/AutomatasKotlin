@@ -5,6 +5,7 @@ import com.Automata.Interfaces.AutomatonType
 import com.mxgraph.swing.handler.mxKeyboardHandler
 import com.mxgraph.swing.handler.mxRubberband
 import com.mxgraph.swing.mxGraphComponent
+import com.mxgraph.util.mxConstants
 import com.mxgraph.util.mxRectangle
 import com.mxgraph.view.mxGraph
 import javafx.application.Application
@@ -17,8 +18,9 @@ import javafx.scene.layout.BorderPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import org.omg.CORBA.Object
 
-class LayoutSample : Application() {
+class AutomatonGraphics : Application() {
 
     private var graphComponent:mxGraphComponent = mxGraphComponent(mxGraph())
     private var automaton:AutomatonType<GraphableState> = DFA<GraphableState>()
@@ -104,7 +106,11 @@ class LayoutSample : Application() {
 
         evaluate.onMouseClicked = EventHandler<javafx.scene.input.MouseEvent> {
             try {
-                val stringToEvaluate = TextInputDialog().showAndWait().orElse("")
+
+                val inputDialog = TextInputDialog()
+                inputDialog.title = "Evaluate String"
+                inputDialog.dialogPane.contentText = "Input String To Evaluate"
+                val stringToEvaluate = inputDialog.showAndWait().orElse("")
                 val result = automaton.evaluate(stringToEvaluate)
                 val alert = javafx.scene.control.Alert(Alert.AlertType.INFORMATION)
                 alert.contentText = if (result) "TRUE" else "FALSE"
@@ -114,7 +120,35 @@ class LayoutSample : Application() {
             }
         }
 
-        hbox.children.addAll(addState, addTransition)
+        val setInitial = Button("Set initial")
+        setInitial.setPrefSize(120.0,20.0)
+
+        setInitial.onMouseClicked = EventHandler<javafx.scene.input.MouseEvent> {
+            try {
+                val stateName = TextInputDialog().showAndWait().orElse("we3rg245g24g245g2434r234r");
+                val state = automaton.setInitialState(stateName)
+                val node = stateNodes.get(stateName)
+                graphComponent.graph.setCellStyles(mxConstants.STYLE_SHAPE, "ellipse")
+                graphComponent.graph.setCellStyles(mxConstants.STYLE_SHAPE, "doubleEllipse", arrayOf(node))
+                graphComponent.graph.refresh()
+            } catch (e: Exception) { }
+        }
+
+        val setFinal = Button("Set Final")
+        setInitial.setPrefSize(120.0,20.0)
+
+        setFinal.onMouseClicked = EventHandler<javafx.scene.input.MouseEvent> {
+            try {
+                val stateName = TextInputDialog().showAndWait().orElse("we3rg245g24g245g2434r234r");
+                val state = automaton.setFinalState(stateName)
+                val node = stateNodes.get(stateName)
+                graphComponent.graph.setCellStyles(mxConstants.STYLE_FILLCOLOR,
+                        if(state.getIsFinal()) "#FF00FF" else "#187199", arrayOf(node))
+                graphComponent.graph.refresh()
+            } catch (e: Exception) { }
+        }
+
+        hbox.children.addAll(addState, addTransition, evaluate, setInitial, setFinal)
 
         return hbox
     }
@@ -130,7 +164,7 @@ class LayoutSample : Application() {
 
 
     private fun buildGraphComponent(): mxGraphComponent {
-        var graph = mxGraph()
+        val graph = mxGraph()
         graph.minimumGraphSize = mxRectangle(0.0, 0.0, 600.0, 600.0)
 
         val graphComponent = mxGraphComponent(graph)
@@ -147,9 +181,15 @@ class LayoutSample : Application() {
 
     companion object {
         @JvmStatic fun main(args: Array<String>) {
-            Application.launch(LayoutSample::class.java, *args)
+            Application.launch(AutomatonGraphics::class.java, *args)
         }
     }
 }
 
+
+
+
 //m50x
+
+
+

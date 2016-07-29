@@ -39,13 +39,13 @@ abstract class State<T : State<T>> : StateType<T> {
 
     override fun setDestinyState(state: T, transition: String) {
         val destinyStates = getDestinyStates(transition)
-        destinyStates.add(state)
+        if(destinyStates.all { destState -> destState.getValue() != state.value }) destinyStates.add(state)
         transitions.put(transition, destinyStates)
     }
 
     override fun equals(other: Any?): Boolean {
         val other = other ?: return false
-        val casted = other as? State<T> ?: return false
+        val casted = other as? State<*> ?: return false
         return value.equals(casted.value)
     }
 
