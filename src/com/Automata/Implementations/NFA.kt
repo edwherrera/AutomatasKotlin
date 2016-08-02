@@ -19,7 +19,7 @@ class NFA<T: StateType<T>> : DFA<T> {
         val destStates = currentState.getDestinyStates(toEval.toString())
 
         for(state in destStates) {
-            if(evaluate(string.substring(1), state)) { return true }
+            if(evaluate(string.drop(1), state)) { return true }
         }
 
         return false
