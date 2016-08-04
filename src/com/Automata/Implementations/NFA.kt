@@ -30,5 +30,4 @@ class NFA<T: StateType<T>> : DFA<T> {
         val toState = getState(toState.getValue()) ?: throw StateNotFoundException()
         fromState.setDestinyState(toState, transition)
     }
-
 }

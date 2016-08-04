@@ -1,6 +1,7 @@
 import com.Automata.Exceptions.StateAlreadyExistsException
 import com.Automata.Implementations.DFA
 import com.Automata.Implementations.GraphableState
+import com.Automata.Implementations.NFA
 import com.Automata.Interfaces.AutomatonType
 import com.mxgraph.swing.handler.mxKeyboardHandler
 import com.mxgraph.swing.handler.mxRubberband
@@ -18,7 +19,6 @@ import javafx.scene.layout.BorderPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
-import org.omg.CORBA.Object
 
 class AutomatonGraphics : Application() {
 
@@ -148,7 +148,17 @@ class AutomatonGraphics : Application() {
             } catch (e: Exception) { }
         }
 
-        hbox.children.addAll(addState, addTransition, evaluate, setInitial, setFinal)
+
+        val changeMode = Button("Change Mode")
+        changeMode.setPrefSize(120.0, 20.0)
+
+        changeMode.onMouseClicked = EventHandler<javafx.scene.input.MouseEvent> {
+            automaton = NFA()
+            stateNodes.clear()
+            graphComponent.graph.removeCells()
+        }
+
+        hbox.children.addAll(addState, addTransition, evaluate, setInitial, setFinal, changeMode)
 
         return hbox
     }
