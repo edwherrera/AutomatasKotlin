@@ -7,20 +7,20 @@ import com.Automata.Interfaces.AutomatonType
 import com.Automata.Interfaces.StateType
 import java.util.*
 
-open class DFA<T : StateType<T>> : AutomatonType<T> {
+open class DFA : AutomatonType {
 
-    private var _initialState: T? = null
-    private var _states: MutableList<T> = ArrayList<T>()
+    private var _initialState: GraphableState? = null
+    private var _states: MutableList<GraphableState> = ArrayList<GraphableState>()
 
-    override fun getInitialState(): T? {
+    override fun getInitialState(): GraphableState? {
         return _initialState
     }
 
-    override fun getStates(): MutableList<T> {
+    override fun getStates(): MutableList<GraphableState> {
         return ArrayList(_states)
     }
 
-    override fun addState(state: T) {
+    override fun addState(state: GraphableState) {
         if (getState(state.getValue()) != null) {
             throw StateAlreadyExistsException()
         }
@@ -31,7 +31,7 @@ open class DFA<T : StateType<T>> : AutomatonType<T> {
         }
     }
 
-    override fun removeState(stateValue: String): T {
+    override fun removeState(stateValue: String): GraphableState {
         _states.forEachIndexed { i, state ->
             if (state.getValue().equals(stateValue)) {
                 clearTransitionsToState(stateValue)
@@ -46,8 +46,8 @@ open class DFA<T : StateType<T>> : AutomatonType<T> {
         throw StateNotFoundException()
     }
 
-    override fun getState(stateValue: String): T? {
-        for (state:T in _states) {
+    override fun getState(stateValue: String): GraphableState? {
+        for (state:GraphableState in _states) {
             if (state.getValue() == stateValue) {
                 return state
             }
@@ -55,7 +55,7 @@ open class DFA<T : StateType<T>> : AutomatonType<T> {
         return null
     }
 
-    override fun setInitialState(stateValue: String): T {
+    override fun setInitialState(stateValue: String): GraphableState {
         val foundState = getState(stateValue) ?: throw StateNotFoundException()
         _initialState = foundState
         return foundState
@@ -72,7 +72,7 @@ open class DFA<T : StateType<T>> : AutomatonType<T> {
         return state.getIsFinal()
     }
 
-    override fun addTransition(transition: String, fromState: T, toState: T)  {
+    override fun addTransition(transition: String, fromState: GraphableState, toState: GraphableState)  {
         val fromState = getState(fromState.getValue()) ?: throw StateNotFoundException()
         val toState = getState(toState.getValue()) ?: throw StateNotFoundException()
 
@@ -87,13 +87,13 @@ open class DFA<T : StateType<T>> : AutomatonType<T> {
         return getState(stateValue) != null
     }
 
-    override fun setFinalState(stateValue: String): T {
+    override fun setFinalState(stateValue: String): GraphableState {
         val foundState = getState(stateValue) ?: throw StateNotFoundException()
         foundState.setIsFinal(!foundState.getIsFinal())
         return foundState
     }
 
-    override fun getFinalStates(): MutableList<T> {
+    override fun getFinalStates(): MutableList<GraphableState> {
         val ml = _states.filter { state -> state.getIsFinal() }
         return ml.toMutableList()
     }

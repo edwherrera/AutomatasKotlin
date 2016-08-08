@@ -9,12 +9,12 @@ import com.Automata.Interfaces.StateType
 
 class NFAToDFA {
 
-    fun convert(nfa: NFA<GraphableState>): DFA<GraphableState> {
+    fun convert(nfa: NFA): DFA {
 
-        val dfa = DFA<GraphableState>()
+        val dfa = DFA()
 
         val transitionValues = getTransitionValues(nfa)
-        val exitMatrix:MutableList<Node<GraphableState>> = mutableListOf()
+        val exitMatrix:MutableList<Node> = mutableListOf()
         val possibleRoads:MutableList<MutableList<GraphableState>> = mutableListOf(mutableListOf())
 
         var initial = nfa.getInitialState()
@@ -87,18 +87,18 @@ class NFAToDFA {
         return stateUnion.distinctBy { state -> state.getValue() }.toMutableList()
     }
 
-    private fun getTransitionValues(automaton: AutomatonType<GraphableState>): List<String> {
+    private fun getTransitionValues(automaton: AutomatonType): List<String> {
         return automaton.getStates().flatMap { state -> state.getTransitions().map { transition -> transition.key } }
                 .distinct()
     }
 }
 
-private class Node<T : StateType<T>>{
-    var entryStates: MutableList<T>
-    var exitStates: MutableList<T>
+private class Node{
+    var entryStates: MutableList<GraphableState>
+    var exitStates: MutableList<GraphableState>
     var transitionName: String
 
-    constructor(entryStates: MutableList<T>, exitStates: MutableList<T>, transitionName: String) {
+    constructor(entryStates: MutableList<GraphableState>, exitStates: MutableList<GraphableState>, transitionName: String) {
         this.entryStates = entryStates
         this.exitStates = exitStates
         this.transitionName = transitionName

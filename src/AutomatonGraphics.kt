@@ -1,4 +1,5 @@
 import com.Automata.Exceptions.StateAlreadyExistsException
+import com.Automata.Helpers.NFAToDFA
 import com.Automata.Implementations.DFA
 import com.Automata.Implementations.GraphableState
 import com.Automata.Implementations.NFA
@@ -23,7 +24,7 @@ import javafx.stage.Stage
 class AutomatonGraphics : Application() {
 
     private var graphComponent:mxGraphComponent = mxGraphComponent(mxGraph())
-    private var automaton:AutomatonType<GraphableState> = DFA<GraphableState>()
+    private var automaton:AutomatonType = DFA()
     private var stage: Stage = Stage()
     private var stateNodes:MutableMap<String, Any> = mutableMapOf()
 
@@ -153,9 +154,54 @@ class AutomatonGraphics : Application() {
         changeMode.setPrefSize(120.0, 20.0)
 
         changeMode.onMouseClicked = EventHandler<javafx.scene.input.MouseEvent> {
-            automaton = NFA()
-            stateNodes.clear()
+            if(automaton is NFA) {
+                automaton = NFAToDFA().convert(automaton as NFA)
+            } else {
+                automaton = NFA()
+            }
+            graphComponent.graph.model.beginUpdate()
+
             graphComponent.graph.removeCells()
+
+            for(state in automaton.getStates()) {
+                val newNode = graphComponent.graph.insertVertex(graphComponent.graph.defaultParent, null, state.getValue(), state.getXCoordinate(),
+                        state.getYCoordinate(), 80.0, 60.0, "shape=ellipse;perimeter=ellipsePerimeter")
+                stateNodes.put(state.getValue(), newNode)
+            }
+
+            for(state in automaton.getStates()) {
+                for(transition in state.getTransitions()) {
+                    for(destiny in state.getDestinyStates(transition.key)) {
+                        val fromNode = stateNodes.get(state.getValue())
+                        val toNode = stateNodes.get(destiny.getValue())
+                        graphComponent.graph.insertEdge(graphComponent.graph.defaultParent, null, transition.key, stateNodes.get(fromNode), stateNodes.get(toNode))
+                    }
+                }
+            }
+
+            graphComponent.graph.model.endUpdate()
+
+            graphComponent.graph.refresh()
+
+        }
+
+        val evaluateEpsilon = Button("Evaluate Epsilon")
+        evaluateEpsilon.setPrefSize(120.0, 20.0)
+
+        evaluateEpsilon.onMouseClicked = EventHandler<javafx.scene.input.MouseEvent> {
+            try {
+
+                val inputDialog = TextInputDialog()
+                inputDialog.title = "Evaluate String"
+                inputDialog.dialogPane.contentText = "Input String To Evaluate"
+                val stringToEvaluate = inputDialog.showAndWait().orElse("")
+                val result = (automaton as NFA).evaluateWithEpsilon(stringToEvaluate)
+                val alert = javafx.scene.control.Alert(Alert.AlertType.INFORMATION)
+                alert.contentText = if (result) "TRUE" else "FALSE"
+                alert.showAndWait()
+            } catch (e:Exception) {
+
+            }
         }
 
         hbox.children.addAll(addState, addTransition, evaluate, setInitial, setFinal, changeMode)
