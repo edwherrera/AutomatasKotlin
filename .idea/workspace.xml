@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3148a20b-def3-41a0-baef-6ac4ac14438d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AutomatonGraphics.kt" afterPath="$PROJECT_DIR$/src/AutomatonGraphics.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Automata/Helpers/NFAToDFA.kt" afterPath="$PROJECT_DIR$/src/com/Automata/Helpers/NFAToDFA.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Automata/Implementations/DFA.kt" afterPath="$PROJECT_DIR$/src/com/Automata/Implementations/DFA.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Automata/Implementations/NFA.kt" afterPath="$PROJECT_DIR$/src/com/Automata/Implementations/NFA.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Automata/Interfaces/AutomatonType.kt" afterPath="$PROJECT_DIR$/src/com/Automata/Interfaces/AutomatonType.kt" />
     </list>
     <ignored path="KotlinTest.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,8 +57,8 @@
       <file leaf-file-name="AutomatonGraphics.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AutomatonGraphics.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="839">
-              <caret line="190" column="60" selection-start-line="190" selection-start-column="60" selection-end-line="190" selection-end-column="60" />
+            <state relative-caret-position="734">
+              <caret line="153" column="36" selection-start-line="153" selection-start-column="36" selection-end-line="153" selection-end-column="36" />
               <folding>
                 <element signature="e#0#835#0" expanded="true" />
                 <element signature="e#4219#4816#2" expanded="false" />
@@ -863,7 +858,7 @@
       <workItem from="1470314907686" duration="2101000" />
       <workItem from="1470325146603" duration="10504000" />
       <workItem from="1470401174742" duration="586000" />
-      <workItem from="1470660788518" duration="3300000" />
+      <workItem from="1470660788518" duration="3343000" />
     </task>
     <task id="LOCAL-00001" summary="switch to new grapher&#10;">
       <created>1469485404527</created>
@@ -886,15 +881,22 @@
       <option name="project" value="LOCAL" />
       <updated>1469486399695</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Epsilon evaluate&#10;">
+      <created>1470664195359</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1470664195359</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76234000" />
+    <option name="totallyTimeSpent" value="76277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="23" width="1280" height="1323" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -983,7 +985,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="switch to new grapher&#10;" />
     <MESSAGE value="...." />
-    <option name="LAST_COMMIT_MESSAGE" value="...." />
+    <MESSAGE value="Epsilon evaluate&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Epsilon evaluate&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1338,8 +1341,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AutomatonGraphics.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="839">
-          <caret line="190" column="60" selection-start-line="190" selection-start-column="60" selection-end-line="190" selection-end-column="60" />
+        <state relative-caret-position="734">
+          <caret line="153" column="36" selection-start-line="153" selection-start-column="36" selection-end-line="153" selection-end-column="36" />
           <folding>
             <element signature="e#0#835#0" expanded="true" />
             <element signature="e#4219#4816#2" expanded="false" />
